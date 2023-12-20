@@ -21,7 +21,7 @@
     <div class="container  mt-4">
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-6 offset-3 shadow rounded">
-                @using (Html.BeginForm())
+                @using (Html.BeginForm("CreateBill", "EBill", FormMethod.Post, new { onsubmit = "return validateItems();" }))
                 {
                     <div class="mt-2">
                         <h3>Create E-Bill</h3>
@@ -84,7 +84,7 @@
                     </div>
                     <div class="mb-3">
                         <button class="btn btn-sm btn-success" type="button" id="addItem">Add</button>
-                        <button class="btn btn-sm btn-primary" type="button" data-bs-dismiss="modal">Close</button>
+                        <button class="btn btn-sm btn-danger" type="button" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -118,4 +118,13 @@
             })
         })
     })
+
+    function validateItems() {
+        var itemCount = $('#items tbody tr').length;
+        if (itemCount === 0) {
+            alert('Please add at least one item.');
+            return false;
+        }
+        return true;
+    }
 </script>

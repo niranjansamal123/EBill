@@ -15,7 +15,6 @@ namespace EBill.Controllers
         }
         public ViewResult DisplayBill(int Id)
         {
-            //var billdetails = dal.GetAllDetails().OrderByDescending(x => x.Id).FirstOrDefault();
             var billdetails = dal.GetDetail(Id);
             return View(billdetails);
         }
@@ -29,8 +28,9 @@ namespace EBill.Controllers
         {
             dal.InsertBillDetails(details);
             ModelState.Clear();
-            return RedirectToAction("DisplayBill");
-            
+            int newBillId = dal.GetLatestBillId();
+            return RedirectToAction("DisplayBill", new { Id = newBillId });
+
         }
 
         public ActionResult CreateItem(Items item)

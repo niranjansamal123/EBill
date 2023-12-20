@@ -147,5 +147,32 @@ namespace EBill.Models
             }
             return detail;
         }
+
+        public int GetLatestBillId()
+        {
+            int latestBillId = 0;
+            try
+            {
+                con.Open();
+                cmd = new SqlCommand("GetLatestBillId", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                var result = cmd.ExecuteScalar();
+
+                if (result != null)
+                {
+                    latestBillId = (int)result;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                con.Close();
+            }
+            return latestBillId;
+        }
+
     }
 }
